@@ -4,12 +4,12 @@ param(
     [Parameter(Mandatory=$false)]
     [ValidateNotNullOrEmpty()]
     [string]
-    $Distro,
+    $Distro = 'Debian',
 
     [Parameter(Mandatory=$false)]
     [ValidateNotNullOrEmpty()]
     [string]
-    $User,
+    $User = 'zadmin',
 
     [switch]
     $NoGPG,
@@ -496,7 +496,7 @@ Invoke-WslCommand -Distribution $Distribution -User 'root' -Command 'ln -sf /dev
 Invoke-WslCommand -Distribution $Distribution -User 'root' -Command 'ln -sf /dev/null /etc/systemd/system/systemd-resolved.service'
 
 Write-Debug "--- Enabling custom systemd services in $($Distribution.Name)"
-Invoke-WslCommand -Distribution $Distribution -User 'root' -Command 'ln -sf ../wsl2-xwayland.socket /etc/systemd/system/sockets.target.wants/'
+#Invoke-WslCommand -Distribution $Distribution -User 'root' -Command 'ln -sf ../wsl2-xwayland.socket /etc/systemd/system/sockets.target.wants/'
 
 # Upgrade distribution packages first
 Write-Debug "--- Attempting to install latest updates in $($Distribution.Name)"
