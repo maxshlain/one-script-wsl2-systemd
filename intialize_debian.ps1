@@ -4,7 +4,7 @@ Using module Wsl
 
 Write-Debug "--- Initial configuration"
 
-Invoke-WslCommand -ErrorAction SilentlyContinue -Distribution 'Debian' -User 'zadmin' -Command @'
+Invoke-WslCommand -ErrorAction SilentlyContinue -DistributionName 'Debian' -User 'zadmin' -Command @'
 # configure dns
 echo "[network]" | sudo tee -a /etc/wsl.conf
 echo "generateResolvConf = false" | sudo tee -a /etc/wsl.conf
