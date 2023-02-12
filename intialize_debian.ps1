@@ -4,7 +4,7 @@ Using module Wsl
 
 Write-Debug "--- Initial configuration"
 
-Invoke-WslCommand -ErrorAction SilentlyContinue -DistributionName 'Debian' -User 'zadmin' -Command @'
+Invoke-WslCommand -ErrorAction SilentlyContinue -DistributionName 'Debian' -User 'root' -Command @'
 # configure dns
 echo "[network]" | sudo tee -a /etc/wsl.conf
 echo "generateResolvConf = false" | sudo tee -a /etc/wsl.conf
@@ -16,13 +16,13 @@ echo "nameserver 8.8.8.4" | sudo tee -a /etc/resolv.conf
 sudo chattr +i /etc/resolv.conf
 
 # update all packages
-sudo apt update && sudo apt upgrade -y
+apt update && apt upgrade -y
 
 # install python3
-sudo apt install -y python3
+apt install -y python3
 
 # install ssh server
-sudo apt-get install -y openssh-server
-sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-sudo service ssh restart
+apt-get install -y openssh-server
+sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+service ssh restart
 '@
