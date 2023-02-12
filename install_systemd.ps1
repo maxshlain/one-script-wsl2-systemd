@@ -869,6 +869,8 @@ if ($response.StatusCode -eq 200) {
     Write-Warning 'Could not fetch the script to set up your SSH & GPG Agents and update the custom WSL2 kernel'
 }
 
+Get-Service LxssManager | Restart-Service
+
 Write-Output "`nDone."
 if (-not $NoKernel) {
     Write-Output "If you want to go back to the Microsoft kernel open a PowerShell or CMD window and run:"
