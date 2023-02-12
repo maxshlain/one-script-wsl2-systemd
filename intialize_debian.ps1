@@ -1,6 +1,6 @@
-. $PSScriptRoot\lib.ps1
-
 Using module Wsl
+
+. $PSScriptRoot\lib.ps1
 
 Write-Debug "--- Initial configuration"
 
