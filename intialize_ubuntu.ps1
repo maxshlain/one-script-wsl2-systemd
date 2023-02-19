@@ -4,7 +4,7 @@ Using module Wsl
 
 Write-Debug "--- Initial configuration"
 
-Invoke-WslCommand -ErrorAction SilentlyContinue -DistributionName 'Ubuntu-Preview' -User 'root' -Command @'
+Invoke-WslCommand -ErrorAction SilentlyContinue -DistributionName 'Ubuntu-22.04' -User 'root' -Command @'
 # configure dns
 echo "[network]" | sudo tee -a /etc/wsl.conf
 echo "generateResolvConf = false" | sudo tee -a /etc/wsl.conf
