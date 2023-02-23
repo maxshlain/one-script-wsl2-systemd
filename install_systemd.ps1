@@ -197,7 +197,8 @@ function Invoke-WslCommand
                 $Command | &$wslPath @wslargs /bin/sh
                 if ($LASTEXITCODE -ne 0) {
                     # Note: this could be the exit code of wsl.exe, or of the launched command.
-                    throw "Wsl.exe returned exit code $LASTEXITCODE from distro: ${DistroName}"
+                    #throw "Wsl.exe returned exit code $LASTEXITCODE from distro: ${DistroName}"
+                    Write-Host "Wsl.exe returned exit code $LASTEXITCODE from distro: ${DistroName} from command: ${Command}" -ForegroundColor Red -BackgroundColor Yellow
                 }    
             }
         }
