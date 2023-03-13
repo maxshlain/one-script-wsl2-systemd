@@ -5,9 +5,6 @@ Using module Wsl
 Write-Debug "--- Initial Ubuntu configuration"
 
 Invoke-WslCommand -ErrorAction SilentlyContinue -DistributionName 'Ubuntu-22.04' -User 'root' -Command @'
-# enable systemd
-echo "[boot]" | sudo tee -a /etc/wsl.conf
-echo "systemd=true" | sudo tee -a /etc/wsl.conf
 
 # configure dns
 echo "[network]" | sudo tee -a /etc/wsl.conf

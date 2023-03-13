@@ -599,278 +599,278 @@ fi
 '@
 
 # Install ZSH
-Write-Debug "--- Installing ZSH in $($Distribution.Name)"
-Invoke-WslCommand -ErrorAction SilentlyContinue -Distribution $Distribution -User 'root' -Command @'
-do_ubuntu() {
-    do_apt
-}
-do_kali() {
-    do_apt
-}
-do_apt() {
-    export DEBIAN_FRONTEND=noninteractive
-    apt-get update
-    apt-get install -yyq zsh
-}
-do_apk() {
-    apk update
-    apk add zsh
-}
-do_sles() {
-    do_zypper
-}
-do_zypper() {
-    zypper --non-interactive install zsh
-}
-if [ -f /etc/os-release ]; then
-    . /etc/os-release
-    case "$ID" in
-        "ubuntu")
-            do_ubuntu ;;
-        "kali")
-            do_kali ;;
-        "debian")
-            do_apt ;;
-        "alpine")
-            do_apk ;;
-        "sles")
-            do_sles ;;
-        *)
-            case "$ID_LIKE" in
-                *"debian"*)
-                    do_apt ;;
-                *"suse"*)
-                    do_zypper ;;
-                *)
-            esac
-            ;;
-    esac
-fi
-'@
-Write-Debug "--- Attempting to configure ZSH in $($Distribution.Name)"
-Invoke-WslCommand -ErrorAction SilentlyContinue -Distribution $Distribution -User 'root' -Command @'
-    if [ -f "/etc/zsh/zshenv" ]; then
-        ZSHENVFILE=/etc/zsh/zshenv
-    elif [ -f "/etc/zshenv" ]; then
-        ZSHENVFILE=/etc/zshenv
-    fi
+# Write-Debug "--- Installing ZSH in $($Distribution.Name)"
+# Invoke-WslCommand -ErrorAction SilentlyContinue -Distribution $Distribution -User 'root' -Command @'
+# do_ubuntu() {
+#     do_apt
+# }
+# do_kali() {
+#     do_apt
+# }
+# do_apt() {
+#     export DEBIAN_FRONTEND=noninteractive
+#     apt-get update
+#     apt-get install -yyq zsh
+# }
+# do_apk() {
+#     apk update
+#     apk add zsh
+# }
+# do_sles() {
+#     do_zypper
+# }
+# do_zypper() {
+#     zypper --non-interactive install zsh
+# }
+# if [ -f /etc/os-release ]; then
+#     . /etc/os-release
+#     case "$ID" in
+#         "ubuntu")
+#             do_ubuntu ;;
+#         "kali")
+#             do_kali ;;
+#         "debian")
+#             do_apt ;;
+#         "alpine")
+#             do_apk ;;
+#         "sles")
+#             do_sles ;;
+#         *)
+#             case "$ID_LIKE" in
+#                 *"debian"*)
+#                     do_apt ;;
+#                 *"suse"*)
+#                     do_zypper ;;
+#                 *)
+#             esac
+#             ;;
+#     esac
+# fi
+# '@
+# Write-Debug "--- Attempting to configure ZSH in $($Distribution.Name)"
+# Invoke-WslCommand -ErrorAction SilentlyContinue -Distribution $Distribution -User 'root' -Command @'
+#     if [ -f "/etc/zsh/zshenv" ]; then
+#         ZSHENVFILE=/etc/zsh/zshenv
+#     elif [ -f "/etc/zshenv" ]; then
+#         ZSHENVFILE=/etc/zshenv
+#     fi
 
-    if [ -n "$ZSHENVFILE" ]; then
-        if ! grep -q 00-wsl2-systemd.sh "$ZSHENVFILE"; then
-            sed -i "1i[ -f '\/etc\/profile.d\/00-wsl2-systemd.sh' ] && emulate sh -c 'source \/etc\/profile.d\/00-wsl2-systemd.sh'" "$ZSHENVFILE"
-        fi
-    else
-        echo "+++ Cannot find 'zshenv' file. ZSH is not configured for systemd."
-    fi
-'@
+#     if [ -n "$ZSHENVFILE" ]; then
+#         if ! grep -q 00-wsl2-systemd.sh "$ZSHENVFILE"; then
+#             sed -i "1i[ -f '\/etc\/profile.d\/00-wsl2-systemd.sh' ] && emulate sh -c 'source \/etc\/profile.d\/00-wsl2-systemd.sh'" "$ZSHENVFILE"
+#         fi
+#     else
+#         echo "+++ Cannot find 'zshenv' file. ZSH is not configured for systemd."
+#     fi
+# '@
 
 # Update the desktop mime database
-Write-Debug "--- Updating desktop-file MIME database in $($Distribution.Name)"
-Invoke-WslCommand -ErrorAction SilentlyContinue -Distribution $Distribution -User 'root' -Command @'
-do_ubuntu() {
-    do_apt
-}
-do_kali() {
-    do_apt
-}
-do_apt() {
-    export DEBIAN_FRONTEND=noninteractive
-    apt-get update
-    apt-get install -yyq desktop-file-utils
-}
-do_apk() {
-    apk update
-    apk add desktop-file-utils
-}
-do_sles() {
-    do_zypper
-}
-do_zypper() {
-    zypper --non-interactive install desktop-file-utils
-}
-if [ -f /etc/os-release ]; then
-    . /etc/os-release
-    case "$ID" in
-        "ubuntu")
-            do_ubuntu ;;
-        "kali")
-            do_kali ;;
-        "debian")
-            do_apt ;;
-        "alpine")
-            do_apk ;;
-        "sles")
-            do_sles ;;
-        *)
-            case "$ID_LIKE" in
-                *"debian"*)
-                    do_apt ;;
-                *"suse"*)
-                    do_zypper ;;
-                *)
-            esac
-            ;;
-    esac
-fi
-if command -v update-desktop-database >/dev/null; then
-    update-desktop-database
-fi
-'@
+# Write-Debug "--- Updating desktop-file MIME database in $($Distribution.Name)"
+# Invoke-WslCommand -ErrorAction SilentlyContinue -Distribution $Distribution -User 'root' -Command @'
+# do_ubuntu() {
+#     do_apt
+# }
+# do_kali() {
+#     do_apt
+# }
+# do_apt() {
+#     export DEBIAN_FRONTEND=noninteractive
+#     apt-get update
+#     apt-get install -yyq desktop-file-utils
+# }
+# do_apk() {
+#     apk update
+#     apk add desktop-file-utils
+# }
+# do_sles() {
+#     do_zypper
+# }
+# do_zypper() {
+#     zypper --non-interactive install desktop-file-utils
+# }
+# if [ -f /etc/os-release ]; then
+#     . /etc/os-release
+#     case "$ID" in
+#         "ubuntu")
+#             do_ubuntu ;;
+#         "kali")
+#             do_kali ;;
+#         "debian")
+#             do_apt ;;
+#         "alpine")
+#             do_apk ;;
+#         "sles")
+#             do_sles ;;
+#         *)
+#             case "$ID_LIKE" in
+#                 *"debian"*)
+#                     do_apt ;;
+#                 *"suse"*)
+#                     do_zypper ;;
+#                 *)
+#             esac
+#             ;;
+#     esac
+# fi
+# if command -v update-desktop-database >/dev/null; then
+#     update-desktop-database
+# fi
+# '@
 
-Write-Debug "--- Installing WSLUtilities in $($Distribution.Name)"
-Invoke-WslCommand -ErrorAction SilentlyContinue -Distribution $Distribution -User 'root' -Command @'
-do_ubuntu() {
-    export DEBIAN_FRONTEND=noninteractive
-    add-apt-repository -y ppa:wslutilities/wslu
-    apt-get update
-    apt-get install -yyq wslu
-}
-do_kali() {
-    export DEBIAN_FRONTEND=noninteractive
-    apt-get update
-    apt install -yyq gnupg2 apt-transport-https
-    wget -O - https://pkg.wslutiliti.es/public.key >> /etc/apt/trusted.gpg.d/wslu.asc
-    echo "deb https://pkg.wslutiliti.es/kali kali-rolling main" >> /etc/apt/sources.list
-    apt-get update
-    apt-get install -yyq wslu
-}
-do_apt() {
-    export DEBIAN_FRONTEND=noninteractive
-    apt-get update
-    apt install -yyq gnupg2 apt-transport-https
-    wget -O - https://pkg.wslutiliti.es/public.key >> /etc/apt/trusted.gpg.d/wslu.asc
-    echo "deb https://pkg.wslutiliti.es/debian buster main" >> /etc/apt/sources.list
-    apt-get update
-    apt-get install -yyq wslu
-}
-do_apk() {
-    echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/community/" >> /etc/apk/repositories
-    apk update
-    apk add wslu@testing
-}
-do_sles() {
-    SLESCUR_VERSION="$(grep VERSION= /etc/os-release | sed -e s/VERSION=//g -e s/\"//g -e s/-/_/g)"
-    sudo zypper addrepo https://download.opensuse.org/repositories/home:/wslutilities/SLE_$SLESCUR_VERSION/home:wslutilities.repo
-    sudo zypper addrepo https://download.opensuse.org/repositories/graphics/SLE_$SLESCUR_VERSION/graphics.repo
-    zypper --non-interactive --no-gpg-checks install wslu
-}
-do_zypper() {
-    zypper addrepo https://download.opensuse.org/repositories/home:/wslutilities/openSUSE_Leap_15.1/home:wslutilities.repo
-    zypper --non-interactive install wslu
-}
-if [ -f /etc/os-release ]; then
-    . /etc/os-release
-    case "$ID" in
-        "ubuntu")
-            do_ubuntu ;;
-        "kali")
-            do_kali ;;
-        "debian")
-            do_apt ;;
-        "alpine")
-            do_apk ;;
-        "sles")
-            do_sles ;;
-        *)
-            case "$ID_LIKE" in
-                *"debian"*)
-                    do_apt ;;
-                *"suse"*)
-                    do_zypper ;;
-                *)
-            esac
-            ;;
-    esac
-fi
-sed -Ei 's^(winps_exec "Write-Output \\\$)Env:\$\*(" | cat)^\1{Env:$*}\2^' /usr/bin/wslview
-if command -v wslview >/dev/null; then
-    wslview --reg-as-browser
-fi
-'@
+# Write-Debug "--- Installing WSLUtilities in $($Distribution.Name)"
+# Invoke-WslCommand -ErrorAction SilentlyContinue -Distribution $Distribution -User 'root' -Command @'
+# do_ubuntu() {
+#     export DEBIAN_FRONTEND=noninteractive
+#     add-apt-repository -y ppa:wslutilities/wslu
+#     apt-get update
+#     apt-get install -yyq wslu
+# }
+# do_kali() {
+#     export DEBIAN_FRONTEND=noninteractive
+#     apt-get update
+#     apt install -yyq gnupg2 apt-transport-https
+#     wget -O - https://pkg.wslutiliti.es/public.key >> /etc/apt/trusted.gpg.d/wslu.asc
+#     echo "deb https://pkg.wslutiliti.es/kali kali-rolling main" >> /etc/apt/sources.list
+#     apt-get update
+#     apt-get install -yyq wslu
+# }
+# do_apt() {
+#     export DEBIAN_FRONTEND=noninteractive
+#     apt-get update
+#     apt install -yyq gnupg2 apt-transport-https
+#     wget -O - https://pkg.wslutiliti.es/public.key >> /etc/apt/trusted.gpg.d/wslu.asc
+#     echo "deb https://pkg.wslutiliti.es/debian buster main" >> /etc/apt/sources.list
+#     apt-get update
+#     apt-get install -yyq wslu
+# }
+# do_apk() {
+#     echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/community/" >> /etc/apk/repositories
+#     apk update
+#     apk add wslu@testing
+# }
+# do_sles() {
+#     SLESCUR_VERSION="$(grep VERSION= /etc/os-release | sed -e s/VERSION=//g -e s/\"//g -e s/-/_/g)"
+#     sudo zypper addrepo https://download.opensuse.org/repositories/home:/wslutilities/SLE_$SLESCUR_VERSION/home:wslutilities.repo
+#     sudo zypper addrepo https://download.opensuse.org/repositories/graphics/SLE_$SLESCUR_VERSION/graphics.repo
+#     zypper --non-interactive --no-gpg-checks install wslu
+# }
+# do_zypper() {
+#     zypper addrepo https://download.opensuse.org/repositories/home:/wslutilities/openSUSE_Leap_15.1/home:wslutilities.repo
+#     zypper --non-interactive install wslu
+# }
+# if [ -f /etc/os-release ]; then
+#     . /etc/os-release
+#     case "$ID" in
+#         "ubuntu")
+#             do_ubuntu ;;
+#         "kali")
+#             do_kali ;;
+#         "debian")
+#             do_apt ;;
+#         "alpine")
+#             do_apk ;;
+#         "sles")
+#             do_sles ;;
+#         *)
+#             case "$ID_LIKE" in
+#                 *"debian"*)
+#                     do_apt ;;
+#                 *"suse"*)
+#                     do_zypper ;;
+#                 *)
+#             esac
+#             ;;
+#     esac
+# fi
+# sed -Ei 's^(winps_exec "Write-Output \\\$)Env:\$\*(" | cat)^\1{Env:$*}\2^' /usr/bin/wslview
+# if command -v wslview >/dev/null; then
+#     wslview --reg-as-browser
+# fi
+# '@
 
 # Install socat for GPG and SSH agent forwarding
-Write-Debug "--- Installing socat in $($Distribution.Name)"
-Invoke-WslCommand -ErrorAction SilentlyContinue -Distribution $Distribution -User 'root' -Command @'
-do_ubuntu() {
-    do_apt
-}
-do_kali() {
-    do_apt
-}
-do_apt() {
-    export DEBIAN_FRONTEND=noninteractive
-    apt-get update
-    apt-get install -yyq socat
-}
-do_apk() {
-    apk update
-    apk add socat
-}
-do_sles() {
-    do_zypper
-}
-do_zypper() {
-    zypper --non-interactive install socat
-}
-if [ -f /etc/os-release ]; then
-    . /etc/os-release
-    case "$ID" in
-        "ubuntu")
-            do_ubuntu ;;
-        "kali")
-            do_kali ;;
-        "debian")
-            do_apt ;;
-        "alpine")
-            do_apk ;;
-        "sles")
-            do_sles ;;
-        *)
-            case "$ID_LIKE" in
-                *"debian"*)
-                    do_apt ;;
-                *"suse"*)
-                    do_zypper ;;
-                *)
-            esac
-            ;;
-    esac
-fi
-'@
+# Write-Debug "--- Installing socat in $($Distribution.Name)"
+# Invoke-WslCommand -ErrorAction SilentlyContinue -Distribution $Distribution -User 'root' -Command @'
+# do_ubuntu() {
+#     do_apt
+# }
+# do_kali() {
+#     do_apt
+# }
+# do_apt() {
+#     export DEBIAN_FRONTEND=noninteractive
+#     apt-get update
+#     apt-get install -yyq socat
+# }
+# do_apk() {
+#     apk update
+#     apk add socat
+# }
+# do_sles() {
+#     do_zypper
+# }
+# do_zypper() {
+#     zypper --non-interactive install socat
+# }
+# if [ -f /etc/os-release ]; then
+#     . /etc/os-release
+#     case "$ID" in
+#         "ubuntu")
+#             do_ubuntu ;;
+#         "kali")
+#             do_kali ;;
+#         "debian")
+#             do_apt ;;
+#         "alpine")
+#             do_apk ;;
+#         "sles")
+#             do_sles ;;
+#         *)
+#             case "$ID_LIKE" in
+#                 *"debian"*)
+#                     do_apt ;;
+#                 *"suse"*)
+#                     do_zypper ;;
+#                 *)
+#             esac
+#             ;;
+#     esac
+# fi
+# '@
 
 # Install GPG4Win
-if ($NoGPG) {
-    Write-Debug 'Skipping Gpg4win installation'
-} elseif (-not -not $(where.exe winget.exe)) {
-    Write-Debug '--- Installing GPG4Win in Windows'
-    try {
-        winget.exe install --silent gnupg.Gpg4win
-    } catch {}
-} else {
-    Write-Debug 'Cannot find winget.exe. Skipping Gpg4Win installation'
-}
+# if ($NoGPG) {
+#     Write-Debug 'Skipping Gpg4win installation'
+# } elseif (-not -not $(where.exe winget.exe)) {
+#     Write-Debug '--- Installing GPG4Win in Windows'
+#     try {
+#         winget.exe install --silent gnupg.Gpg4win
+#     } catch {}
+# } else {
+#     Write-Debug 'Cannot find winget.exe. Skipping Gpg4Win installation'
+# }
 
-Write-Debug '--- Adding Windows scheduled tasks and starting services'
+# Write-Debug '--- Adding Windows scheduled tasks and starting services'
 
-$adminScript = "$env:TEMP\setup-agent-services.ps1"
-$response = Invoke-WebRequest -Uri "$repoUrl/src/setup-agent-services.ps1" -OutFile $adminScript -PassThru -UseBasicParsing
-if ($response.StatusCode -eq 200) {
-    $CmdArgs = @()
-    if ($NoGPG) {
-        $CmdArgs += @('-NoGPG')
-    }
-    if ($NoKernel) {
-        $CmdArgs += @('-NoKernel')
-    }
-    try {
-        Start-Process -Verb RunAs -Wait -FilePath $powershellProcess -Args '-NonInteractive', '-ExecutionPolicy', 'ByPass', '-Command', "$adminScript $CmdArgs"
-    } catch {}
-    Remove-Item $adminScript
-} else {
-    Write-Warning 'Could not fetch the script to set up your SSH & GPG Agents and update the custom WSL2 kernel'
-}
+# $adminScript = "$env:TEMP\setup-agent-services.ps1"
+# $response = Invoke-WebRequest -Uri "$repoUrl/src/setup-agent-services.ps1" -OutFile $adminScript -PassThru -UseBasicParsing
+# if ($response.StatusCode -eq 200) {
+#     $CmdArgs = @()
+#     if ($NoGPG) {
+#         $CmdArgs += @('-NoGPG')
+#     }
+#     if ($NoKernel) {
+#         $CmdArgs += @('-NoKernel')
+#     }
+#     try {
+#         Start-Process -Verb RunAs -Wait -FilePath $powershellProcess -Args '-NonInteractive', '-ExecutionPolicy', 'ByPass', '-Command', "$adminScript $CmdArgs"
+#     } catch {}
+#     Remove-Item $adminScript
+# } else {
+#     Write-Warning 'Could not fetch the script to set up your SSH & GPG Agents and update the custom WSL2 kernel'
+# }
 
-Get-Service LxssManager | Restart-Service
+# Get-Service LxssManager | Restart-Service
 
 Write-Output "`nDone."
 if (-not $NoKernel) {
