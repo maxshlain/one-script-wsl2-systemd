@@ -2,7 +2,7 @@ Using module Wsl
 
 . $PSScriptRoot\lib.ps1
 
-Write-Debug "--- Initial configuration"
+Write-Debug "--- Initial Ubuntu configuration"
 
 Invoke-WslCommand -ErrorAction SilentlyContinue -DistributionName 'Ubuntu-22.04' -User 'root' -Command @'
 # configure dns
@@ -18,14 +18,10 @@ sudo chattr +i /etc/resolv.conf
 # update all packages
 apt update && apt upgrade -y
 apt install -y wget
-wget -qO - https://pkg.wslutiliti.es/public.key | sudo tee /etc/apt/trusted.gpg.d/wslu.asc > /dev/null
-apt update && apt upgrade -y
 
 # install python3
 apt install -y python3
 
-# install ssh server
-apt-get install -y openssh-server
-sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-service ssh restart
+# uninstall install ssh server
+sudo service ssh stop && sudo apt-get --purge remove openssh-server
 '@

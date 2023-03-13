@@ -2,7 +2,7 @@ Using module Wsl
 
 . $PSScriptRoot\lib.ps1
 
-Write-Debug "--- Initial configuration"
+Write-Debug "--- Initial Debian configuration"
 
 Invoke-WslCommand -ErrorAction SilentlyContinue -DistributionName 'Debian' -User 'root' -Command @'
 # configure dns
@@ -18,8 +18,6 @@ sudo chattr +i /etc/resolv.conf
 # update all packages
 apt update && apt upgrade -y
 apt install -y wget
-wget -qO - https://pkg.wslutiliti.es/public.key | sudo tee /etc/apt/trusted.gpg.d/wslu.asc > /dev/null
-apt update && apt upgrade -y
 
 # install python3
 apt install -y python3
