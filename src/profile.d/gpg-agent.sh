@@ -8,8 +8,8 @@ if is_wsl; then
     done
     unset sock
 
-    mkdir -p "$HOME/.wsl-cmds"
-    ln -sf "$(wslpath "$(wslvar 'ProgramFiles(x86)')/GnuPG/bin/gpg.exe")" "$HOME/.wsl-cmds/gpg"
+    # mkdir -p "$HOME/.wsl-cmds"
+    # ln -sf "$(wslpath "$(wslvar 'ProgramFiles(x86)')/GnuPG/bin/gpg.exe")" "$HOME/.wsl-cmds/gpg"
 
-    [[ "$PATH" != *"$HOME/.wsl-cmds"* ]] && export PATH="$HOME/.wsl-cmds:$PATH"
+    # [[ "$PATH" != *"$HOME/.wsl-cmds"* ]] && export PATH="$HOME/.wsl-cmds:$PATH"
 fi
