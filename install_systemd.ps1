@@ -878,4 +878,4 @@ if (-not $NoKernel) {
     Write-Output "`n`t$powershellProcess -NonInteractive -NoProfile -Command 'Start-Process' -Verb RunAs -FilePath $powershellProcess -ArgumentList '{ Unregister-ScheduledJob -Name UpdateWSL2CustomKernel }'"
 }
 Write-Output "`n"
-Write-Output "You may now close this window..."
+# Write-Output "You may now close this window..."
